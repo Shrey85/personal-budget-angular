@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Budget</title>
-    <meta name="description" content="A free personal budger app">
+    <meta name="description" content="A free personal budget app">
     <meta name="keywords" content="app free budget finance">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-
 <a href="#main" class="skip">Skip to content</a>
-
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
@@ -21,16 +19,12 @@
             <li><a href="https://google.com">Google</a></li>
         </ul>
     </nav>
-
     <div class="hero">
         <h1>Personal Budget</h1>
         <h2>A personal-budget management app</h2>
     </div>
-
     <main class="center" id="main">
-
         <div class="page-area">
-
             <article>
                 <h1>Stay on track</h1>
                 <p>
@@ -39,7 +33,6 @@
                     app will help you with that!
                 </p>
             </article>
-    
             <article>
                 <h1>Alerts</h1>
                 <p>
@@ -87,28 +80,31 @@
                     because they know it is all good and accounted for.
                 </p>
             </article>
-    
+            <!-- More articles as per your original code -->
             <article>
                 <h1>Chart</h1>
                 <p>
                     <canvas id="myChart" width="400" height="400"></canvas>
                 </p>
             </article>
-
+            <article>
+                <h1>Donut Chart</h1>
+                <p>
+                    <canvas id="myDonutChart" width="400" height="400"></canvas>
+                </p>
+            </article>
         </div>
-
     </main>
-
     <footer class="bottom">
         <div class="center">
             All rights reserved &copy; Fabio Nolasco
         </div>
     </footer>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
-
+    <script src="http://d3js.org/d3.v3.min.js"></script>
     <script>
+        //  existing pie chart code here
         var dataSource = {
                 datasets: [
                     {
@@ -123,7 +119,6 @@
                 ],
                 labels: []
             };
-
         function createChart() {
             var ctx = document.getElementById('myChart').getContext('2d');
             var myPieChart = new Chart(ctx, {
@@ -131,7 +126,6 @@
                 data: dataSource
             });
         }
-
         function getBudget() {
             axios.get('http://localhost:3000/budget')
             .then(function (res) {
@@ -142,9 +136,40 @@
                 }
             });
         }
-
-        getBudget();
+        getBudget(); //till here
     </script>
-
+    <script>
+        // Donut chart code
+        
+        var donutDataSource = {
+            labels: [],
+            datasets: [
+                {
+                    data: [],
+                    backgroundColor: [
+                        '#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00'
+                    ]
+                }
+            ]
+        };
+        function createDonutChart() {
+            var donutCtx = document.getElementById('myDonutChart').getContext('2d');
+            var myDonutChart = new Chart(donutCtx, {
+                type: 'doughnut',
+                data: donutDataSource
+            });
+        }
+        function getDonutChartData() {
+            axios.get('http://localhost:3000/budget1')
+                .then(function (res) {
+                    for (var i = 0; i < res.data.myBudget.length; i++) {
+                        donutDataSource.labels[i] = res.data.myBudget[i].name;
+                        donutDataSource.datasets[0].data[i] = res.data.myBudget[i].amount;
+                        createDonutChart();
+                    }
+                });
+        }
+        getDonutChartData();
+    </script>
 </body>
 </html>
