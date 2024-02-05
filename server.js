@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const budgetData = require('./budget-data.json');
 
 app.use('/', express.static('public'));
 
@@ -23,6 +24,10 @@ const budget = {
 
 app.get('/budget', (req, res) => {
     res.json(budget);
+});
+
+app.get('/budget1', (req, res) => {
+    res.json({ myBudget: budgetData.categories });
 });
 
 app.get('/hello', (req, res) => {
