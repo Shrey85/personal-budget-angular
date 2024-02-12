@@ -6,6 +6,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { P404Component } from './p404/p404.component';
+import { AppComponent } from './app.component';
+import { ContactComponent } from './contact/contact.component';
+import { DataService } from './data.service';
 
 export const routes: Routes = [
   {
@@ -22,6 +25,10 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'contact',
+    component: ContactComponent
+  },
+  {
     path: '**',
     component: P404Component
   }
@@ -29,6 +36,7 @@ export const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  providers: [DataService],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

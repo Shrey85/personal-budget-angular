@@ -11,10 +11,11 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { P404Component } from './p404/p404.component';
 
+
 @Component({
   selector: 'pb-root',
   standalone: true,
-  imports: [RouterOutlet, MenuComponent, HomepageComponent, HeroComponent, FooterComponent, ArticleComponent, AboutComponent, LoginComponent, P404Component, HttpClientModule],
+  imports: [RouterOutlet, MenuComponent, HeroComponent, FooterComponent, ArticleComponent, AboutComponent, LoginComponent, P404Component, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
