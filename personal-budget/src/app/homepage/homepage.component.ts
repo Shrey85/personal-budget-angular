@@ -1,7 +1,6 @@
 import { Component, NgModule,OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Chart } from 'chart.js/auto';
-import { DataService } from '../data.service';
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -27,7 +26,7 @@ export class HomepageComponent implements OnInit {
     labels: [] as string[]
   };
 
-  constructor(private http: HttpClient, private dataService: DataService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     console.log('ngOnInit triggered');
